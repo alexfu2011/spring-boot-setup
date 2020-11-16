@@ -26,6 +26,7 @@
 ### 安装 Oracle Java
 
 下载 Java 安装包：
+
 	https://github.com/frekele/oracle-java/releases/download/8u212-b10/jdk-8u212-linux-x64.rpm
 
 安装 Java：
