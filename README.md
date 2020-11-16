@@ -22,10 +22,10 @@
 
 ### 安装 Oracle Java
 
-下载安装包：
+下载 Java 安装包：
 	https://github.com/frekele/oracle-java/releases/download/8u212-b10/jdk-8u212-linux-x64.rpm
 
-安装包：
+安装 Java：
 
 	yum install jdk-8u212-linux-x64.rpm
 	
@@ -48,11 +48,11 @@
 
 	chmod 744 bootstrap.sh
 
-创建系统服务：
+创建服务：
 
 	ln -s /root/bootstrap.sh /etc/init.d/boot
 
-启动：
+启动 Spring Boot：
 
 	service boot start
 
@@ -79,7 +79,7 @@
 		proxy_set_header X-Forwarded-Port $server_port;
 	}
 
-重启：
+重启 Nginx：
 
 	systemctl restart nginx
 
