@@ -1,31 +1,22 @@
 #!/bin/bash
+#
+#	/etc/.init.d/boot
+#boot	This shell script takes care of starting and stopping
+#	boot (Spring boot Application)
+#
+# Author: Alex Fu
+#
+# chkconfig: 2345 80 20
+# description: boot is the Spring Boot Service daemon.
 
-######################################################
-# Copyright 2020 alex fu
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# Repo: https://github.com/alexfu2011/spring-boot-setup
-#
-######### PARAM ######################################
+# Source function library.
+. /etc/init.d/functions
 
 JAVA_OPT=-Xmx1024m
 JARPATH=/root
 JARFILE=`ls -1r $JARPATH/*.jar 2>/dev/null | head -n 1`
-PID_FILE=pid.file
+PID_FILE=$JARPATH/pid.file
 RUNNING=N
-
-######### DO NOT MODIFY ########
 
 if [ -f $PID_FILE ]; then
         PID=`cat $PID_FILE`
@@ -39,14 +30,13 @@ start()
         if [ $RUNNING == "Y" ]; then
                 echo "Application already started"
         else
-                if [ -z "$PWD/$JARFILE" ]
+                if [ -z "$JARFILE" ]
                 then
                         echo "ERROR: jar file not found"
                 else
-                        nohup java  $JAVA_OPT -Djava.security.egd=file:/dev/./urandom -jar $JARFILE > nohup.out 2>&1  &
+                        nohup java $JAVA_OPT -Djava.security.egd=file:/dev/./urandom -jar $JARFILE > nohup.out 2>&1  &
                         echo $! > $PID_FILE
                         echo "Application $JARFILE starting..."
-                        tail -f nohup.out
                 fi
         fi
 }
@@ -69,23 +59,22 @@ restart()
 }
 
 case "$1" in
-
-        'start')
+        start)
                 start
                 ;;
-
-        'stop')
+        stop)
                 stop
                 ;;
-
-        'restart')
+        status)
+                status boot
+                ;;
+        restart)
                 restart
                 ;;
-
         *)
                 echo "Usage: $0 {  start | stop | restart  }"
                 exit 1
                 ;;
 esac
-exit 0
+exit $?
 

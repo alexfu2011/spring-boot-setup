@@ -33,11 +33,11 @@
 
 下载启动脚本：
 
-	wget https://raw.githubusercontent.com/alexfu2011/spring-boot-setup/master/bootstrap.sh
+	wget https://raw.githubusercontent.com/alexfu2011/spring-boot-setup/master/boot.sh
 
 打开启动脚本：
 
-	nano bootstrap.sh
+	nano boot.sh
 
 修改如下变量，如果应用程序目录相同可不修改：
 
@@ -46,11 +46,19 @@
 
 添加执行权限：
 
-	chmod 744 bootstrap.sh
+	chmod 744 boot.sh
 
 创建服务：
 
-	ln -s /root/bootstrap.sh /etc/init.d/boot
+	ln -s /root/boot.sh /etc/init.d/boot
+
+添加自启动：
+
+	chkconfig --add boot
+
+重启服务：
+
+	systemctl daemon-reload
 
 启动 Spring Boot：
 
