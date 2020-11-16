@@ -91,3 +91,6 @@
 
 	systemctl restart nginx
 
+## 参考
+
+* https://www.linux.com/training-tutorials/managing-linux-daemons-init-scripts/
